@@ -4,6 +4,7 @@ import db from '../db/database.js';
 import { generateSignature } from '../services/signature.service.js';
 import { getNextRetryTime } from '../services/retry.service.js';
 import type { Event, Endpoint } from '../types/db.types.js';
+import { sendEventToClients } from '../sse/stream.js';
 
 export const startDeliveryWorker = () => {
     cron.schedule('*/5 * * * * *', async() => {
@@ -56,6 +57,15 @@ export const startDeliveryWorker = () => {
                         db.prepare(`
                                 UPDATE events SET status = 'success' WHERE id = ?
                             `).run(event.id);
+
+                sendEventToClients({
+                    event_id: event.id,
+                    status: 'success',
+                    status_code: response.status,
+                    response_time_ms: responseTime,
+                    endpoint_url: endpoint.url,
+                    timestamp: new Date().toISOString()
+                });
             } catch (error:any) {
                 const attempt = event.attempt_count + 1;
                 const nextRetry = getNextRetryTime(attempt);
@@ -71,6 +81,15 @@ export const startDeliveryWorker = () => {
                         0,
                         error.message
                     );
+                
+                sendEventToClients({
+                    event_id: event.id,
+                    status: 'failed',
+                    error: error.message,
+                    attempt: attempt,
+                    timestamp: new Date().toISOString()
+                });
+                
                 if(!nextRetry){
                     db.prepare(`
                         UPDATE events 
