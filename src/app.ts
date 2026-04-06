@@ -1,6 +1,8 @@
 import express from 'express';
 import db from './db/database.js';
 import endpointsRoutes from './routes/endpoints.routes.js'
+import { registerRoutes } from './routes/index.js';
+import { startDeliveryWorker } from './worker/delivery.worker.js';
 
 const app = express();
 app.use(express.json());
@@ -10,7 +12,9 @@ app.get('/', (req, res) => {
     res.send('Webhook Delivery Service Running');
 });
 
-app.use('/api/endpoints', endpointsRoutes);
+//Register all routes
+registerRoutes(app);
+startDeliveryWorker();
 
 const PORT = 3000;
 

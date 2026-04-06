@@ -27,7 +27,8 @@ db.exec(`
         payload TEXT,
         status TEXT DEFAULT 'pending',
         next_retry_at DATETIME,
-        attempted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        attempt_count INTEGER DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         FOREIGN KEY(endpoint_id) REFERENCES endpoints(id) ON DELETE CASCADE
     );
 
