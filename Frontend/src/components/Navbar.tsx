@@ -12,7 +12,7 @@ export default function Navbar() {
     ];
 
     return (
-        <nav className="glass" style={{ 
+        <nav className="glass nav-container" style={{ 
             position: "sticky", 
             top: 0, 
             zIndex: 100, 
@@ -35,10 +35,10 @@ export default function Navbar() {
                 }}>
                     <img src="/logo.png" alt="WDS Logo" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                 </div>
-                <h2 style={{ fontSize: "1.25rem", fontWeight: 700, margin: 0 }}>WDS</h2>
+                <h2 className="nav-link-text" style={{ fontSize: "1.25rem", fontWeight: 700, margin: 0 }}>WDS</h2>
             </Link>
 
-            <div style={{ display: "flex", gap: "1rem" }}>
+            <div className="nav-links" style={{ display: "flex", gap: "1rem" }}>
                 {navItems.map((item) => {
                     const Icon = item.icon;
                     const isActive = location.pathname === item.path;
@@ -46,6 +46,7 @@ export default function Navbar() {
                         <Link 
                             key={item.path} 
                             to={item.path} 
+                            className="nav-link"
                             style={{
                                 display: "flex",
                                 alignItems: "center",
@@ -60,7 +61,7 @@ export default function Navbar() {
                             }}
                         >
                             <Icon size={16} strokeWidth={isActive ? 2.5 : 2} />
-                            {item.label}
+                            <span className="nav-link-text">{item.label}</span>
                         </Link>
                     )
                 })}

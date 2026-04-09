@@ -176,8 +176,8 @@ export default function Dashboard() {
                                 <th style={{ padding: "1rem 1.25rem", fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase" }}>Time</th>
                                 <th style={{ padding: "1rem 1.25rem", fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase" }}>Event ID</th>
                                 <th style={{ padding: "1rem 1.25rem", fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase" }}>Status</th>
-                                <th style={{ padding: "1rem 1.25rem", fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase" }}>HTTP</th>
-                                <th style={{ padding: "1rem 1.25rem", fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase" }}>Latency</th>
+                                <th style={{ padding: "1rem 1.25rem", fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase" }} className="mobile-hide">HTTP</th>
+                                <th style={{ padding: "1rem 1.25rem", fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase" }} className="mobile-hide">Latency</th>
                                 <th style={{ padding: "1rem 1.25rem", fontSize: "0.75rem", fontWeight: 600, color: "var(--text-muted)", textTransform: "uppercase" }}>Actions</th>
                             </tr>
                         </thead>
@@ -202,10 +202,10 @@ export default function Dashboard() {
                                                 {log.status}
                                             </span>
                                         </td>
-                                        <td style={{ padding: "1rem 1.25rem", fontWeight: 600, fontSize: "0.875rem" }}>
+                                        <td style={{ padding: "1rem 1.25rem", fontWeight: 600, fontSize: "0.875rem" }} className="mobile-hide">
                                             {log.status_code || "-"}
                                         </td>
-                                        <td style={{ padding: "1rem 1.25rem", color: "var(--text-secondary)", fontSize: "0.875rem" }}>
+                                        <td style={{ padding: "1rem 1.25rem", color: "var(--text-secondary)", fontSize: "0.875rem" }} className="mobile-hide">
                                             {log.response_time_ms ? `${log.response_time_ms}ms` : "-"}
                                         </td>
                                         <td style={{ padding: "1rem 1.25rem" }}>
