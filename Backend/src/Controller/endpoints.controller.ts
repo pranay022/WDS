@@ -2,7 +2,7 @@ import type { Request, Response } from 'express';
 import * as endpointService from '../services/endpoint.service.js';
 import type { ResolveFnOutput } from 'node:module';
 
-export const createEndpoit = (req: Request, res:Response) => {
+export const createEndpoint = (req: Request, res:Response) => {
     try {
         const {url, secret, description } = req.body;
         
@@ -10,7 +10,7 @@ export const createEndpoit = (req: Request, res:Response) => {
             return res.status(400).json({error:'url and secret are required'});
         }
 
-        const endpoint = endpointService.createEndpoit(url, secret, description);
+        const endpoint = endpointService.createEndpoint(url, secret, description);
         res.status(201).json(endpoint);
     } catch (error) {
         res.status(500).json({error: 'Failed to create endpoint'});

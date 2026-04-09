@@ -16,3 +16,27 @@ export const getEndpointById = ( id: number) => {
         `);
     return stmt.get(id);
 }
+
+export const getAllEvents = () => {
+    const stmt = db.prepare(`SELECT * FROM events ORDER BY created_at DESC`);
+    return stmt.all();
+};
+
+export const retryEvent = (id: number) => {
+    const now = new Date().toISOString();
+    const stmt = db.prepare(`
+        UPDATE events 
+        SET status = 'pending', next_retry_at = ?, attempt_count = 0 
+        WHERE id = ?
+    `);
+    return stmt.run(now, id);
+};
+
+export const cancelEvent = (id: number) => {
+    const stmt = db.prepare(`
+        UPDATE events 
+        SET status = 'cancelled' 
+        WHERE id = ?
+    `);
+    return stmt.run(id);
+};

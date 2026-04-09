@@ -1,6 +1,6 @@
 import db from '../db/database.js';
 
-export const  createEndpoit = (url: string, secret: string, description?: string) =>{
+export const  createEndpoint = (url: string, secret: string, description?: string) =>{
     const stmt = db.prepare(`
             INSERT INTO endpoints (url, secret, description)
             VALUES (?, ?, ?)
